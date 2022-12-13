@@ -7,6 +7,10 @@ public abstract class Dado {
     private Face[] faces;
     private Face faceSorteada;
 
+    protected Dado(Face[] faces) {
+        this.faces = faces;
+    }
+
     public void jogar() {
         int sorteado = new Random().nextInt(0, faces.length);
         this.faceSorteada = faces[sorteado];
@@ -19,8 +23,8 @@ public abstract class Dado {
         return faceSorteada;
     }
 
-    public void setFaceSorteada(Face faceSorteada) {
-        this.faceSorteada = faceSorteada;
+    public void resetFaceSorteada() {
+        this.faceSorteada = null;
     }
 
 }
