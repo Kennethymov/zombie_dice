@@ -2,6 +2,7 @@ package br.com.ada.zombiedice.pote;
 
 import br.com.ada.zombiedice.dado.Dado;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,11 +19,18 @@ public class PoteDado {
     }
 
     public List<Dado> entregarDado(int quantidade) {
-        return null;
+        List<Dado> buffer = new ArrayList<>();
+        int contador = quantidade;
+        while (contador > 0) {
+            Dado removidoDaListaOriginal = this.dados.remove(0);
+            buffer.add(removidoDaListaOriginal);
+            contador--;
+        }
+        return buffer;
     }
 
-    public void devolverDado(Dado[] dado) {
-
+    public void devolverDado(List<Dado> dados) {
+        this.dados.addAll(dados);
     }
 
 }
