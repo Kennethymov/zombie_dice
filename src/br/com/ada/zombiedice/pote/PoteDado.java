@@ -30,6 +30,9 @@ public class PoteDado {
     }
 
     public void devolverDado(List<Dado> dados) {
+        for (Dado dado: dados) {
+            dado.resetFaceSorteada();
+        }
         this.dados.addAll(dados);
     }
 
