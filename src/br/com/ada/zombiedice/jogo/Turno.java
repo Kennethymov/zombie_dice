@@ -7,6 +7,7 @@ import br.com.ada.zombiedice.zumbi.Zumbi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Turno {
 
@@ -25,9 +26,27 @@ public class Turno {
     }
 
     public void jogar() {
+        Scanner scanner = new Scanner(System.in);
         String continuarJogando = "n";
         do {
+            System.out.println("Jogador " + jogador.getNome() +
+                    " é sua vez, realize uma jogada.");
+            List<Dado> dadosLancados = jogador.lancarDados(pote, new ArrayList<>());
+            for (Dado dado : dadosLancados) {
+                System.out.println("Você lançou o dado " + dado.getTipoDado() +
+                        " e obteve o resultado " + dado.getFaceSorteada());
+                boolean dadoContabilizado = contabilizarDadoJogado(dado);
+                if (!dadoContabilizado) {
+                    //relancar esse dado
+                }
+            }
+            boolean forcarEncerramento = forcarEncerramentoTurno();
+            if (forcarEncerramento) {
+                break;
+            }
 
+            System.out.println(jogador.getNome() + " deseja jogar novamente?(s/n)");
+            continuarJogando = scanner.nextLine();
         } while (continuarJogando.equalsIgnoreCase("s"));
         contabilizarTurno();
     }
