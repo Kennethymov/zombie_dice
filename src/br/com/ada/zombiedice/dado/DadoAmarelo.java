@@ -13,4 +13,8 @@ public class DadoAmarelo extends Dado {
         });
     }
 
+    @Override
+    public TipoDado getTipoDado() {
+        return TipoDado.AMARELO;
+    }
 }

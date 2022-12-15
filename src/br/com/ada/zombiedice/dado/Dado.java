@@ -27,4 +27,6 @@ public abstract class Dado {
         this.faceSorteada = null;
     }
 
+    public abstract TipoDado getTipoDado();
+
 }
