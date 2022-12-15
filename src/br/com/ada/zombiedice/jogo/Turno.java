@@ -28,27 +28,32 @@ public class Turno {
     public void jogar() {
         Scanner scanner = new Scanner(System.in);
         String continuarJogando = "n";
+        ArrayList<Dado> dadosASeremRelancados = new ArrayList<>();
         do {
             System.out.println("Jogador " + jogador.getNome() +
                     " é sua vez, realize uma jogada.");
-            List<Dado> dadosLancados = jogador.lancarDados(pote, new ArrayList<>());
+            List<Dado> dadosLancados = jogador.lancarDados(pote, dadosASeremRelancados);
+            dadosASeremRelancados.clear();
             for (Dado dado : dadosLancados) {
                 System.out.println("Você lançou o dado " + dado.getTipoDado() +
                         " e obteve o resultado " + dado.getFaceSorteada());
                 boolean dadoContabilizado = contabilizarDadoJogado(dado);
                 if (!dadoContabilizado) {
-                    //relancar esse dado
+                    dadosASeremRelancados.add(dado);
                 }
             }
             boolean forcarEncerramento = forcarEncerramentoTurno();
             if (forcarEncerramento) {
                 break;
             }
-
+            System.out.println("Pontuação atual no turno: " + qtdeCerebros +
+                    " cerebros consumidos, " + qtdeTiros + " tiros levados");
             System.out.println(jogador.getNome() + " deseja jogar novamente?(s/n)");
             continuarJogando = scanner.nextLine();
         } while (continuarJogando.equalsIgnoreCase("s"));
         contabilizarTurno();
+        pote.devolverDado(dadosUtilizadosNoTurno);
+        pote.devolverDado(dadosASeremRelancados);
     }
 
     private boolean forcarEncerramentoTurno() {
