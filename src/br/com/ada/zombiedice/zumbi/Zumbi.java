@@ -3,6 +3,7 @@ package br.com.ada.zombiedice.zumbi;
 import br.com.ada.zombiedice.dado.Dado;
 import br.com.ada.zombiedice.pote.PoteDado;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Zumbi {
@@ -38,7 +39,16 @@ public class Zumbi {
     }
 
     public List<Dado> lancarDados(PoteDado pote, List<Dado> dadosSortearamPassosNaJogadaAnterior) {
-        return null;
+        //3 quantidade base de dados
+        int qtdeNecessario = 3 - dadosSortearamPassosNaJogadaAnterior.size();
+        pote.embaralhar();
+        List<Dado> dadosDoPote = pote.entregarDado(qtdeNecessario);
+        List<Dado> dadosDisponiveis = new ArrayList<>(dadosDoPote);
+        dadosDisponiveis.addAll(dadosSortearamPassosNaJogadaAnterior);
+        for (Dado dado: dadosDisponiveis) {
+            dado.jogar();
+        }
+        return dadosDisponiveis;
     }
 
 }

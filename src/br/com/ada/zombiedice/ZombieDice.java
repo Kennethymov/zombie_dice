@@ -1,11 +1,14 @@
+package br.com.ada.zombiedice;
+
 import br.com.ada.zombiedice.dado.Dado;
 import br.com.ada.zombiedice.dado.DadoAmarelo;
 import br.com.ada.zombiedice.dado.DadoVerde;
 import br.com.ada.zombiedice.dado.DadoVermelho;
+import br.com.ada.zombiedice.jogo.Turno;
 import br.com.ada.zombiedice.pote.PoteDado;
+import br.com.ada.zombiedice.zumbi.Zumbi;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ZombieDice {
 
@@ -30,24 +33,10 @@ public class ZombieDice {
 
         PoteDado pote = new PoteDado(dados);
 
-        //Jogada um
-        pote.embaralhar();
-        List<Dado> dadosDoJogador = pote.entregarDado(3);
-        for (Dado dado: dadosDoJogador) {
-            dado.jogar();
-            System.out.println(dado.getFaceSorteada());
-        }
-        pote.devolverDado(dadosDoJogador);
+        Zumbi william = new Zumbi("William");
+        Turno turno1 = new Turno(william, pote);
+        turno1.jogar();
 
-        System.out.println("--------");
-
-        pote.embaralhar();
-        dadosDoJogador = pote.entregarDado(2);
-        for (Dado dado: dadosDoJogador) {
-            dado.jogar();
-            System.out.println(dado.getFaceSorteada());
-        }
-        pote.devolverDado(dadosDoJogador);
     }
 
 

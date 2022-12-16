@@ -29,14 +29,12 @@ public class Turno {
         Scanner scanner = new Scanner(System.in);
         String continuarJogando = "n";
         ArrayList<Dado> dadosASeremRelancados = new ArrayList<>();
+        System.out.println("Jogador " + jogador.getNome() +
+                " é sua vez, realize uma jogada.");
         do {
-            System.out.println("Jogador " + jogador.getNome() +
-                    " é sua vez, realize uma jogada.");
             List<Dado> dadosLancados = jogador.lancarDados(pote, dadosASeremRelancados);
             dadosASeremRelancados.clear();
             for (Dado dado : dadosLancados) {
-                System.out.println("Você lançou o dado " + dado.getTipoDado() +
-                        " e obteve o resultado " + dado.getFaceSorteada());
                 boolean dadoContabilizado = contabilizarDadoJogado(dado);
                 if (!dadoContabilizado) {
                     dadosASeremRelancados.add(dado);
@@ -44,6 +42,7 @@ public class Turno {
             }
             boolean forcarEncerramento = forcarEncerramentoTurno();
             if (forcarEncerramento) {
+                System.out.println("Turno será encerrado pois você levou " + qtdeTiros + " tiros");
                 break;
             }
             System.out.println("Pontuação atual no turno: " + qtdeCerebros +
@@ -61,18 +60,16 @@ public class Turno {
     }
 
     private boolean contabilizarDadoJogado(Dado dado) {
+        System.out.println("Você lançou o dado " + dado.getTipoDado() +
+                " e obteve o resultado " + dado.getFaceSorteada());
         boolean contabilizado = dado.getFaceSorteada() != Face.PASSOS;
         if (contabilizado) {
             dadosUtilizadosNoTurno.add(dado);
             if (dado.getFaceSorteada() == Face.CEREBRO) {
-                System.out.println("Yeah, você consumiu mais um cerebro");
                 qtdeCerebros++;
             } else {
-                System.out.println("Mal dia, levou um tiro");
                 qtdeTiros++;
             }
-        } else {
-            System.out.println("Vai precisar correr mais, sua presa fugiu");
         }
         return contabilizado;
     }
